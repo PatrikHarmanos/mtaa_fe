@@ -7,19 +7,12 @@ import {
 import {
     Title,
     Caption,
-    Paragraph,
-    Drawer,
-    Text,
-    TouchableRipple,
-    Switch,
-    ActivityIndicator,
-    Image
+    Drawer
 } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as SecureStore from 'expo-secure-store';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Avatar } from 'react-native-elements';
+import Context from '../store/context';
 
 export function DrawerContent(props, route) {
 
@@ -36,6 +29,8 @@ export function DrawerContent(props, route) {
           console.log(error);
         }
     }
+
+    const {state} = useContext(Context)
     
     return (
         <View style={{flex: 1}}>
@@ -43,8 +38,8 @@ export function DrawerContent(props, route) {
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
                         <View style={{marginLeft:15, flexDirection:'column'}}>
-                            <Title style={styles.title}>John Doe</Title>
-                            <Caption style={styles.caption}>John@doe.com</Caption>
+                            <Title style={styles.title}>{state.first_name} {state.last_name}</Title>
+                            <Caption style={styles.caption}>{state.email}</Caption>
                         </View>
                     </View>
                 </View>

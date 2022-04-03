@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {
   StyleSheet,
   TextInput,
@@ -14,11 +14,12 @@ import {
   Platform
 } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-
+import Context from "../store/context"
 
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const {state, actions} = useContext(Context);
 
   async function save(key, value) {
     await SecureStore.setItemAsync(key, value)
@@ -55,9 +56,15 @@ const LoginScreen = ({navigation}) => {
         }
       })
       .then ((responseJson) => {
+        console.log(responseJson)
         if (responseJson) {
           save('access' , responseJson.accessToken)
           save('refresh', responseJson.refreshToken)
+          actions({type: 'setState', payload: {...state, 
+            first_name: responseJson.first_name,
+            last_name: responseJson.last_name,
+            email: responseJson.email
+          }})
           navigation.navigate("DrawerNavigation");
         }
       })
