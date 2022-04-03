@@ -13,14 +13,16 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 
 const LoginScreen = ({navigation}) => {
-  const [userFirstName, setUserFirstName] = useState('');
-  const [userLastName, setUserLastName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [userPasswordAgain, setUserPasswordAgain] = useState('');
+
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, value)
+  }
 
   const handleRegisterButton = () => {
     if (!userEmail) {
@@ -44,11 +46,20 @@ const LoginScreen = ({navigation}) => {
         'Content-Type': 'application/json'
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        }
+        if (response.status === 401 || response.status === 404) {
+          alert('Nespravne heslo');
+        }
+      })
       .then ((responseJson) => {
-          if (responseJson != 'wrong password') {
-            navigation.navigate("HomeScreen");
-          }
+        if (responseJson) {
+          save('access' , responseJson.accessToken)
+          save('refresh', responseJson.refreshToken)
+          navigation.navigate("DrawerNavigation");
+        }
       })
       .catch((error) => {
         console.log(error);

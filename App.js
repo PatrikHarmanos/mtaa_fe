@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './Screens/SplashScreen';
 import LoginScreen from './Screens/LoginScreen';
 import CreateAccountScreen from './Screens/CreateAccountScreen';
+import DrawerNavigation from './Screens/DrawerNavigation';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,11 @@ const App = () => {
         <Stack.Screen 
           name="CreateAccountScreen" 
           component={CreateAccountScreen} 
+          options={{headerShown: false}}
+        />
+        <Stack.Screen 
+          name="DrawerNavigation" 
+          component={DrawerNavigation}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

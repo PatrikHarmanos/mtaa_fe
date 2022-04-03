@@ -16,75 +16,10 @@ import {
 
 
 const HomeScreen = ({navigation}) => {
-  const [userFirstName, setUserFirstName] = useState('');
-  const [userLastName, setUserLastName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userPasswordAgain, setUserPasswordAgain] = useState('');
-
-  const handleRegisterButton = () => {
-    if (!userEmail) {
-      alert('Prosím zadajte e-mail');
-      return;
-    }
-    if (!userPassword) {
-      alert('Prosím zadajte heslo');
-      return;
-    }
-
-    var dataToSend = {
-      email: userEmail,
-      password: userPassword
-    }
-
-    // fetch('http://localhost:3000/api/account/register', {
-    //   method: 'POST',
-    //   body: JSON.stringify(dataToSend),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then ((responseJson) => {
-    //       console.log(responseJson);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
-    navigation.navigate("LoginScreen");
-  };
   
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.text_header}>Prihlásenie</Text>
-        <ScrollView>
-            <Text style={[styles.text_footer, {marginTop: 30}]}>E-mail</Text>
-            <View style={styles.action}>
-                <TextInput style={styles.textInput}
-                    onChangeText={(Email) => setUserEmail(Email)}
-                    placeholder="Zadajte email"
-                /> 
-            </View>
-            <Text style={styles.text_footer}>Heslo</Text>
-            <View style={styles.action}>
-                <TextInput style={styles.textInput}
-                    onChangeText={(password) => setUserPassword(password)}
-                    placeholder="Zadajte heslo"
-                    secureTextEntry={true}
-                /> 
-            </View>
-        </ScrollView>
-      </View>
-      <View style={styles.footer}>
-        <View style={styles.button}>
-        <TouchableOpacity onPress={handleRegisterButton} style={styles.signIn}>
-            <Text style={styles.textSign}>Prihlásiť sa</Text>
-        </TouchableOpacity>
-        </View>
-      </View>
-      
+      <Text>dasdas</Text>
     </View>
   );
 };
