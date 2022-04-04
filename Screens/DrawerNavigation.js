@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
+import MenuScreen from './MenuScreen';
 import { DrawerContent } from './DrawerContent';
 
 const Stack = createStackNavigator();
@@ -20,6 +21,12 @@ const UserScreenStack = ({navigation}) => (
         }
     }}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{
+                headerLeft: () => (
+                    <Icon.Button name="ios-menu" size={25} backgroundColor="#fff" color="#000" onPress={() => navigation.openDrawer()}></Icon.Button>
+                ),
+                title: ''
+            }} />
+            <Stack.Screen name="MenuScreen" component={MenuScreen} options={{
                 headerLeft: () => (
                     <Icon.Button name="ios-menu" size={25} backgroundColor="#fff" color="#000" onPress={() => navigation.openDrawer()}></Icon.Button>
                 ),

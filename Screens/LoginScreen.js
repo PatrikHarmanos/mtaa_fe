@@ -63,7 +63,8 @@ const LoginScreen = ({navigation}) => {
           actions({type: 'setState', payload: {...state, 
             first_name: responseJson.first_name,
             last_name: responseJson.last_name,
-            email: responseJson.email
+            email: responseJson.email,
+            id: responseJson.id
           }})
           navigation.navigate("DrawerNavigation");
         }

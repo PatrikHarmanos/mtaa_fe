@@ -42,6 +42,32 @@ export function DrawerContent(props, route) {
                             <Caption style={styles.caption}>{state.email}</Caption>
                         </View>
                     </View>
+                    <Drawer.Section style={styles.drawerSection}>
+                      <DrawerItem 
+                          icon={({color, size}) => (
+                              <Icon 
+                                  name='home-outline'
+                                  color={color}
+                                  size={size}
+                              />
+                          )}
+                          isEnabled={false}
+                          label="Domov"
+                          onPress={() => {props.navigation.navigate("HomeScreen")}}
+                      />
+                      <DrawerItem 
+                          icon={({color, size}) => (
+                              <Icon 
+                                  name='food'
+                                  color={color}
+                                  size={size}
+                              />
+                          )}
+                          isEnabled={false}
+                          label="Menu"
+                          onPress={() => {props.navigation.navigate("MenuScreen")}}
+                      />
+                    </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
@@ -95,7 +121,7 @@ const styles = StyleSheet.create({
       marginRight: 3,
     },
     drawerSection: {
-      marginTop: 15,
+      marginTop: 5,
     },
     bottomDrawerSection: {
         marginBottom: 15,

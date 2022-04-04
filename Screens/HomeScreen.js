@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   TextInput,
@@ -11,15 +11,83 @@ import {
   ScrollView,
   Button,
   Dimensions,
-  Platform
+  Platform,
+  FlatList
 } from 'react-native';
-
+import Moment from 'moment';
+import { FAB } from 'react-native-paper';
+import * as SecureStore from 'expo-secure-store';
 
 const HomeScreen = ({navigation}) => {
+  const [data, setData] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  Moment.locale('en');
+
+  const onRefresh = () => {
+    setIsFetching(true);
+  }
+
+  useEffect(() => {
+    try {
+      SecureStore.getItemAsync('access').then((token) => {
+        if (token != null) {
+          fetch('http://localhost:3000/api/orders/get_my_orders', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token,
+            }
+          })
+            .then((response) => response.json())
+            .then ((responseJson) => {
+              setData(responseJson)
+              setIsFetching(false)
+            })
+        } else {
+          navigation.navigate("SplashScreen")
+        }
+      })
+    } catch(error) {
+      console.log(error);
+    }
+  }, [isFetching])
   
   return (
     <View style={styles.container}>
-      <Text>dasdas</Text>
+      <Text style={styles.textHeading}>Moje objednávky</Text>
+      { data.length === 0 ? 
+        <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={styles.noData}>
+            Nemáte žiadne objednávky.
+          </Text>
+        </View> : (
+        <FlatList
+          data={data}
+          keyExtractor={item => item.id}
+          onRefresh={() => onRefresh()}
+          refreshing={isFetching}
+          renderItem={({ item }) => 
+            <TouchableOpacity onPress={() => console.log('touched')} style={styles.item}> 
+              <View style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
+                <Text style={{ color: '#006902', fontSize: 12, fontWeight: 'bold', marginBottom: 2}}>
+                  { Moment(item.created_at).format('DD.MM.YYYY') }
+                </Text>
+              </View>
+              <Text style={styles.orderTitle}>
+                {item.address}, {item.city}
+              </Text>
+              <Text style={styles.orderSubTitle}>
+                {item.total_price} €
+              </Text>
+            </TouchableOpacity>
+          }
+        /> )}
+      <FAB
+        style={styles.fab}
+        large
+        icon="plus"
+        onPress={() => navigation.navigate("MenuScreen")}
+      />
     </View>
   );
 };
@@ -45,11 +113,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
-  text_header: {
+  textHeading: {
     color: '#5B84B1FF',
+    fontSize: 20,
     fontWeight: 'bold',
-    fontSize: 30,
-    marginBottom: 30
+    marginLeft: 20,
+    marginTop: 10
+  },
+  fab: {
+    position: 'absolute',
+    margin: 10,
+    right: 30,
+    bottom: 40,
+    backgroundColor: '#5B84B1FF'
   },
   text_footer: {
     color: '#05375a',
@@ -91,5 +167,29 @@ const styles = StyleSheet.create({
     color: '#5B84B1FF',
     fontWeight: 'bold',
     fontSize: 20
+  },
+  item: {
+    backgroundColor: '#fff',
+    padding: 15,  
+    marginVertical: 8,
+    marginHorizontal: 8,
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1
+  },
+  orderTitle: {
+    fontSize: 21,
+    marginBottom: 4,
+    color: '#000',
+    fontWeight: 'bold'
+  },
+  orderSubTitle: {
+    fontSize: 16,
+    color: '#5B84B1FF',
+    fontWeight: 'bold'
+  },
+  noData: {
+    fontSize: 14,
+    color: '#777',
+    marginTop: 10
   }
 });
