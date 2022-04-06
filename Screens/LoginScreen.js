@@ -64,7 +64,8 @@ const LoginScreen = ({navigation}) => {
             first_name: responseJson.first_name,
             last_name: responseJson.last_name,
             email: responseJson.email,
-            id: responseJson.id
+            id: responseJson.id,
+            is_admin: responseJson.is_admin
           }})
           navigation.navigate("DrawerNavigation");
         }

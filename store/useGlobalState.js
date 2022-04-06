@@ -6,7 +6,8 @@ const useGlobalState = () => {
             first_name: '',
             last_name: '',
             email: '',
-            id: undefined
+            id: undefined,
+            is_admin: false
         }
     );
 

@@ -67,6 +67,20 @@ export function DrawerContent(props, route) {
                           label="Menu"
                           onPress={() => {props.navigation.navigate("MenuScreen")}}
                       />
+                      { state.is_admin ? (
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                    name='account-lock-outline'
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            isEnabled={false}
+                            label="Admin"
+                            onPress={() => {props.navigation.navigate('AdminScreenStack', { screen: 'AdminHomeScreen' })}}
+                        />
+                      ) : null}
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>

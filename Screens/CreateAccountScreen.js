@@ -63,21 +63,20 @@ const CreateAccountScreen = ({navigation}) => {
         'Content-Type': 'application/json'
       },
     })
-      .then((response) => response.json())
-      .then ((responseJson) => {
-          console.log(responseJson);
+      .then((response) => {
+        console.log(response.status)
+        if (response.status === 201) {
+          navigation.navigate("LoginScreen")
+          setUserFirstName("");
+          setUserLastName("");
+          setUserEmail("");
+          setUserPassword("");
+          setUserPasswordAgain("");
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-
-    setUserFirstName("");
-    setUserLastName("");
-    setUserEmail("");
-    setUserPassword("");
-    setUserPasswordAgain("");
-
-    navigation.navigate("LoginScreen");
   };
 
   return (
