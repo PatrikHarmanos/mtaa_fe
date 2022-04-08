@@ -7,6 +7,7 @@ import MenuScreen from './MenuScreen';
 import { DrawerContent } from './DrawerContent';
 import AdminHomeScreen from './AdminHomeScreen';
 import AdminAddProductScreen from './AdminAddProductScreen';
+import OrderDetailScreen from './OrderDetailScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -32,6 +33,9 @@ const UserScreenStack = ({navigation}) => (
                 headerLeft: () => (
                     <Icon.Button name="ios-menu" size={25} backgroundColor="#fff" color="#000" onPress={() => navigation.openDrawer()}></Icon.Button>
                 ),
+                title: ''
+            }} />
+            <Stack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{
                 title: ''
             }} />
     </Stack.Navigator>

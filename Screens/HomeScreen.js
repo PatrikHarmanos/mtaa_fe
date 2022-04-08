@@ -27,11 +27,27 @@ const HomeScreen = ({navigation}) => {
     setIsFetching(true);
   }
 
+  const handleButton = (item) => {
+    navigation.navigate("OrderDetailScreen", {
+      id: item.id,
+      address: item.address,
+      city: item.city,
+      postal_code: item.postal_code,
+      phone_number: item.phone_number,
+      total_price: item.total_price,
+      user_id: item.user_id,
+      state: item.state,
+      products: item.products,
+      quantity: item.quantity,
+      created_at: item.created_at
+    })
+  }
+
   useEffect(() => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch('http://localhost:3000/api/orders/get_my_orders', {
+          fetch('http://147.175.160.206:3000/api/orders/get_my_orders', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -67,7 +83,7 @@ const HomeScreen = ({navigation}) => {
           onRefresh={() => onRefresh()}
           refreshing={isFetching}
           renderItem={({ item }) => 
-            <TouchableOpacity onPress={() => console.log('touched')} style={styles.item}> 
+            <TouchableOpacity onPress={() => handleButton(item)} style={styles.item}> 
               <View style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
                 <Text style={{ color: '#006902', fontSize: 12, fontWeight: 'bold', marginBottom: 2}}>
                   { Moment(item.created_at).format('DD.MM.YYYY') }
