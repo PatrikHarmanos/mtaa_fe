@@ -7,6 +7,10 @@ import MenuScreen from './MenuScreen';
 import { DrawerContent } from './DrawerContent';
 import AdminHomeScreen from './AdminHomeScreen';
 import AdminAddProductScreen from './AdminAddProductScreen';
+import CartScreen from './CartScreen'
+import CheckoutScreen from './CheckoutScreen';
+import ProductDetailScreen from './ProductDetailScreen';
+import AdminOrdersScreen from './AdminOrdersScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -34,6 +38,9 @@ const UserScreenStack = ({navigation}) => (
                 ),
                 title: ''
             }} />
+            <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen} options={{
+                title: ''
+            }} />
     </Stack.Navigator>
 );
 
@@ -57,6 +64,32 @@ const AdminScreenStack = ({navigation}) => (
             <Stack.Screen name="AdminAddProductScreen" component={AdminAddProductScreen} options={{
                 title: ''
             }} />
+            <Stack.Screen name="AdminOrdersScreen" component={AdminOrdersScreen} options={{
+                title: ''
+            }} />
+    </Stack.Navigator>
+);
+
+const CartScreenStack = ({navigation}) => (
+    <Stack.Navigator screenOptions={{
+        headerStyle: {
+        backgroundColor: '#fff',
+        shadowColor: '#fff', // ios (header bottom line)
+        elevation: 0 // android 
+        },
+        headerTitleStyle: {
+        fontWeight: 'bold'
+        }
+    }}>
+            <Stack.Screen name="CartScreen" component={CartScreen} options={{
+                headerLeft: () => (
+                    <Icon.Button name="ios-menu" size={25} backgroundColor="#fff" color="#000" onPress={() => navigation.openDrawer()}></Icon.Button>
+                ),
+                title: ''
+            }} />
+            <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{
+                title: ''
+            }} />
     </Stack.Navigator>
 );
 
@@ -70,6 +103,11 @@ const DrawerNavigation = (props) => {
                 }}
             />
             <Drawer.Screen name="AdminScreenStack" component={AdminScreenStack} 
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Drawer.Screen name="CartScreenStack" component={CartScreenStack} 
                 options={{
                     headerShown: false,
                 }}

@@ -72,10 +72,7 @@ const AdminAddProductScreen = ({navigation}) => {
         }
     };
 
-    const handleRegisterButton = () => {
-
-        console.log(image)
-    
+    const handleRegisterButton = () => {    
         let formData = new FormData();
         formData.append('image', {
             uri : image,
@@ -100,7 +97,6 @@ const AdminAddProductScreen = ({navigation}) => {
                         },
                     })
                     .then((response) => {
-                        console.log(response.status)
                         if (response.status === 201) {
                             return response.json()
                         }
@@ -118,6 +114,8 @@ const AdminAddProductScreen = ({navigation}) => {
         } catch(error) {
             console.log(error);
         }
+
+        navigation.navigate("AdminHomeScreen")
     };
 
     return (

@@ -31,6 +31,7 @@ const MenuScreen = ({navigation}) => {
             .then((response) => response.json())
             .then ((responseJson) => {
               setDATA(responseJson)
+              setIsFetching(false)
             })
         } else {
           navigation.navigate("SplashScreen")
@@ -40,9 +41,17 @@ const MenuScreen = ({navigation}) => {
       console.log(error);
     }
   }, [isFetching])
+  
+  const openProductDetail = (item) => {
+    navigation.navigate("ProductDetailScreen", {
+      id: item.id,
+      name: item.name,
+      price: item.price
+    })
+  }
 
   const Item = ({ item }) => (
-    <TouchableOpacity onPress={() => console.log('touched')} style={styles.item}>
+    <TouchableOpacity onPress={() => openProductDetail(item)} style={styles.item}>
       <View>
         <Text style={styles.orderTitle}>{item.name}</Text>
         <Text style={styles.orderSubTitle}>{item.description}</Text>
@@ -55,6 +64,8 @@ const MenuScreen = ({navigation}) => {
     <View style={styles.container}>
       <Text style={styles.textHeading}>Aktuálna ponuka</Text>
       <SectionList
+        onRefresh={() => onRefresh()}
+        refreshing={isFetching}
         sections={DATA}
         keyExtractor={(item, index) => item.id + index}
         renderItem={({ item }) => <Item item={item} />}
