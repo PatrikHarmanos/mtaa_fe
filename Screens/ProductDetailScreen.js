@@ -25,6 +25,35 @@ const ProductDetailScreen = ({navigation, route}) => {
     const { id, name, price } = route.params
     const [quantity, setQuantity] = useState(0)
     const {state} = useContext(Context)
+    const [image, setImage] = useState()
+    const [isFetching, setIsFetching] = useState(false);
+
+    useEffect(() => {
+      try {
+        SecureStore.getItemAsync('access').then((token) => {
+          if (token != null) {
+            fetch(`http://localhost:3000/api/products/get_product_photo/${id}`, {
+              method: 'GET',
+              headers: {
+                "Content-Type": "image/jpeg",
+                'Authorization': 'Bearer ' + token,
+              }
+            })
+            .then(response => response.blob())
+            .then(imageBlob => {
+                // Then create a local URL for that image and print it 
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+                console.log(imageObjectURL);
+                setImage(imageObjectURL)
+            });
+          } else {
+            navigation.navigate("SplashScreen")
+          }
+        })
+      } catch(error) {
+        console.log(error);
+      }
+    }, [isFetching])
 
     const addToCart = () => {
         const product = {
@@ -44,9 +73,12 @@ const ProductDetailScreen = ({navigation, route}) => {
     return (
         <View style={styles.container}>
         <Text style={styles.textHeading}>Detail produktu</Text>
-        <Text>{name}</Text>
-        <Text>{price} eur</Text>
-        <NumericInput onChange={value => setQuantity(value)} minValue={1} />
+        <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, marginLeft: 20, marginTop: 20, borderWidth: 1, borderColor: '#000' }} />}
+          <Text style={styles.categoryText}>{name}</Text>
+          <Text style={[styles.categoryText, {color: '#000', marginBottom: 20}]}>{price} eur</Text>
+          <NumericInput onChange={value => setQuantity(value)} minValue={1} />
+        </View>
         <FAB
             disabled={quantity === 0 ? true : false}
             style={styles.fab}
@@ -158,5 +190,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#777',
     marginTop: 10
+  },
+  categoryText: {
+    marginLeft: 20,
+    marginTop: 20,
+    fontWeight: 'bold',
+    color: '#006902',
+    fontSize: 25
   }
 });

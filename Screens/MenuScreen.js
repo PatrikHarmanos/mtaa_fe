@@ -30,6 +30,7 @@ const MenuScreen = ({navigation}) => {
           })
             .then((response) => response.json())
             .then ((responseJson) => {
+              console.log(responseJson)
               setDATA(responseJson)
               setIsFetching(false)
             })
