@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   TextInput
 } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
+import Context from "../store/context"
 
 export default class Profile extends Component {
 
@@ -42,7 +44,7 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-  header:{  //ostane
+  header:{  // ok
     backgroundColor: "#FFFFFF",
     height:180,
     flexDirection: 'column',
@@ -50,25 +52,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 30
   },
-  body:{
+  body:{ // ok
     alignItems: 'center'
   },
-  bodyContent: {
-    flex: 1,
-    alignItems: 'center',
-    padding:30,
-  },
-  name:{    //ostane
+  name:{    // ok
     fontSize:28,
     color: "#5B84B1FF",
     fontWeight: "bold"
   },
-  info:{    //ostane
+  info:{    // ok
     fontSize:16,
     color: "#5B84B1FF",
     marginTop:10
   },
-  buttonContainer: {
+  buttonContainer: { // ok
     marginTop:10,
     height:45,
     flexDirection: 'row',
@@ -79,36 +76,22 @@ const styles = StyleSheet.create({
     borderRadius:30,
     backgroundColor: "#5B84B1FF",
   },
-  textInput: {
+  textInput: { // ok
     flex: 1,
     marginVertical: 12,
     paddingLeft: 10,
     color: '#05375a',
     fontSize: 16
   },
-  container: {  // ostane
+  container: {  // ok
     flex: 1,
     backgroundColor: '#fff'
   },
-  footer: {
-    flex: 1,
-    backgroundColor: '#5B84B1FF',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-  },
-  text_header: {
-    color: '#5B84B1FF',
-    fontWeight: 'bold',
-    fontSize: 30,
-    marginBottom: 30
-  },
-  text_footer: {
+  text_footer: { // ok
     color: '#05375a',
     fontSize: 18
   },
-  action: { // ostava
+  action: { // ok
     flexDirection: 'row',
     marginTop: 5,
     marginBottom: 20,
@@ -118,20 +101,7 @@ const styles = StyleSheet.create({
     borderColor: '#5B84B1FF',
     borderWidth: 1
   },
-  textInput: {
-    flex: 1,
-    marginVertical: 12,
-    paddingLeft: 10,
-    color: '#05375a',
-    fontSize: 16
-  },
-  button: {
-    alignItems: 'center',
-    marginTop: 40
-  },
-  textSign: {
-    color: '#5B84B1FF',
-    fontWeight: 'bold',
-    fontSize: 20
-  }
+  
+ 
+  
 });
