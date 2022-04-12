@@ -1,17 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
-  TextInput,
   View,
   Text,
-  Image,
-  KeyboardAvoidingView,
-  Keyboard,
   TouchableOpacity,
   ScrollView,
   Button,
-  Dimensions,
-  Platform,
   FlatList
 } from 'react-native';
 import { add } from "react-native-reanimated";
@@ -37,6 +31,7 @@ const OrderDetailScreen = ({navigation, route}) => {
     i = 0
       products.map(product => {
         items.push({
+          'id': i,
           'name': product,
           'quantity': quantity[i]
         })
@@ -68,11 +63,13 @@ const OrderDetailScreen = ({navigation, route}) => {
         <View style={styles.popis}>
           <Text style={styles.information}>Produkty</Text>
           <FlatList
-            data={reformatProducts(products)}
+            data={reformatProducts(products, quantity)}
             keyExtractor={item => item.id}
             renderItem={({item}) => 
-              <View styles={styles.infElement}>
-                {item.name} {item.quantity}
+              <View styles={styles.popis}>
+                <Text styles={styles.infElement}>
+                  {item.name} {item.quantity}
+                </Text>
               </View>
             }
           />

@@ -8,6 +8,7 @@ import { DrawerContent } from './DrawerContent';
 import AdminHomeScreen from './AdminHomeScreen';
 import AdminAddProductScreen from './AdminAddProductScreen';
 import OrderDetailScreen from './OrderDetailScreen';
+import ProfileScreen from './ProfileScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -38,6 +39,10 @@ const UserScreenStack = ({navigation}) => (
             <Stack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{
                 title: ''
             }} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{
+                title: ''
+            }} />
+
     </Stack.Navigator>
 );
 

@@ -67,6 +67,18 @@ export function DrawerContent(props, route) {
                           label="Menu"
                           onPress={() => {props.navigation.navigate("MenuScreen")}}
                       />
+                      <DrawerItem 
+                          icon={({color, size}) => (
+                              <Icon 
+                                  name='account'
+                                  color={color}
+                                  size={size}
+                              />
+                          )}
+                          isEnabled={false}
+                          label="Profil"
+                          onPress={() => {props.navigation.navigate("ProfileScreen")}}
+                      />
                       { state.is_admin ? (
                         <DrawerItem 
                             icon={({color, size}) => (
