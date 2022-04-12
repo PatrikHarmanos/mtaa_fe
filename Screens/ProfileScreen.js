@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useState, useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,9 +10,53 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import Context from "../store/context"
 
-export default class Profile extends Component {
-
-  render() {
+const ProfileScreen = ({navigation}) => {
+    const [userPassword, setUserPassword] = useState('');
+    const [userPasswordDup, setUserPasswordDup] = useState('');
+    const {state, actions} = useContext(Context);
+  
+    async function save(key, value) {
+      await SecureStore.setItemAsync(key, value)
+    }
+  
+    const handleUpdateButton = () => {
+      if (!userPassword) {
+        alert('Prosím zadajte heslo');
+        return;
+      }
+      if (!userPasswordDup) {
+        alert('Prosím zadajte heslo znovu');
+        return;
+      }
+      if (userPassword != userPasswordDup) {
+          alert('Zadane hesla sa nezhoduju');
+          return;
+      }
+  
+      var dataToSend = {
+        password: userPasswordDup
+      }
+  
+      fetch('http://10.10.37.143:3000/api/account/update', {
+        method: 'PUT',
+        body: JSON.stringify(dataToSend),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert('Heslo bolo zmenene')
+          }
+          if (response.status === 401 || response.status === 404) {
+            alert('Nespravne heslo');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -30,18 +74,18 @@ export default class Profile extends Component {
                 <Text style={styles.text_footer}>Nové heslo</Text>
                 <View style={styles.action}>
                     <TextInput style={styles.textInput}
-                        onChangeText={(password) => setUserPassword2(password)}
+                        onChangeText={(password) => setUserPasswordDup(password)}
                         placeholder="Zadajte heslo znova."
                         secureTextEntry={true}/>             
                 </View>
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity onPress={handleUpdateButton} style={styles.buttonContainer}>
                         <Text style={{fontWeight:'bold', color:'#FFFFFF'}}>Zmeniť heslo</Text>  
                     </TouchableOpacity>  
             </View>
         </View>
-      );
-    }
-}
+        );
+    };
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   header:{  // ok
@@ -101,7 +145,4 @@ const styles = StyleSheet.create({
     borderColor: '#5B84B1FF',
     borderWidth: 1
   },
-  
- 
-  
 });
