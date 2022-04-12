@@ -40,7 +40,7 @@ const LoginScreen = ({navigation}) => {
       password: userPassword
     }
 
-    fetch('http://10.10.10.27:3000/api/account/login', {
+    fetch('http://10.10.37.143:3000/api/account/login', {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {

@@ -47,7 +47,7 @@ const HomeScreen = ({navigation}) => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch('http://10.10.10.27:3000/api/orders/get_my_orders/', { // zmenit IPcky 
+          fetch('http://10.10.37.143:3000/api/orders/get_my_orders/', { // zmenit IPcky 
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

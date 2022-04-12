@@ -31,6 +31,21 @@ const OrderDetailScreen = ({navigation, route}) => {
     quantity,
     created_at,
   } = route.params;
+
+  const reformatProducts = (products, quantity) => {
+    let items = []
+    i = 0
+      products.map(product => {
+        items.push({
+          'name': product,
+          'quantity': quantity[i]
+        })
+        i++
+      })
+
+    return items;
+  }
+
   return (
     <View style={styles.container}>
         <View style={styles.nadpis}>
@@ -52,6 +67,15 @@ const OrderDetailScreen = ({navigation, route}) => {
         </View>
         <View style={styles.popis}>
           <Text style={styles.information}>Produkty</Text>
+          <FlatList
+            data={reformatProducts(products)}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => 
+              <View styles={styles.infElement}>
+                {item.name} {item.quantity}
+              </View>
+            }
+          />
         </View>
 
         <View style={styles.footer}>
@@ -91,7 +115,7 @@ const styles = StyleSheet.create({
   information: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: '#456991'
+    color: '#000000'
   },
   infElement: {
     marginLeft: 30,
