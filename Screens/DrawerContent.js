@@ -80,6 +80,18 @@ export function DrawerContent(props, route) {
                           label="Košík"
                           onPress={() => {props.navigation.navigate("CartScreenStack", { screen: "CartScreen" })}}
                       />
+                      <DrawerItem 
+                          icon={({color, size}) => (
+                              <Icon 
+                                  name='account'
+                                  color={color}
+                                  size={size}
+                              />
+                          )}
+                          isEnabled={false}
+                          label="Profil"
+                          onPress={() => {props.navigation.navigate("ProfileScreen")}}
+                      />
                       { state.is_admin ? (
                         <DrawerItem 
                             icon={({color, size}) => (

@@ -39,9 +39,8 @@ const LoginScreen = ({navigation}) => {
       email: userEmail,
       password: userPassword
     }
-    console.log(process.env.SERVER_URL)
 
-    fetch(`http://localhost:3000/api/account/login`, {
+    fetch('http://10.10.37.143:3000/api/account/login', {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {
