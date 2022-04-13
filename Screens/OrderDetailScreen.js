@@ -8,7 +8,6 @@ import {
   Button,
   FlatList
 } from 'react-native';
-import { add } from "react-native-reanimated";
 
 const OrderDetailScreen = ({navigation, route}) => {
     

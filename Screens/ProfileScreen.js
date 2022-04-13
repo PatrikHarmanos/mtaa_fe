@@ -10,10 +10,11 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import Context from "../store/context"
 
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = (props) => {
     const [userPassword, setUserPassword] = useState('');
     const [userPasswordDup, setUserPasswordDup] = useState('');
-    const {state, actions} = useContext(Context);
+
+    const {state} = useContext(Context)
   
     async function save(key, value) {
       await SecureStore.setItemAsync(key, value)
@@ -34,6 +35,7 @@ const ProfileScreen = ({navigation}) => {
       }
   
       var dataToSend = {
+        id: state.id,
         password: userPasswordDup
       }
   
@@ -60,8 +62,8 @@ const ProfileScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.name}>JOHN DOE</Text>
-                <Text style={styles.info}>UX Designer / Mobile developer</Text>
+                <Text style={styles.name}>{state.first_name} {state.last_name}</Text>  
+                <Text style={styles.info}>{state.email}</Text>
             </View>
             <View style={styles.body}>
                 <Text style={[styles.text_footer]}>Heslo</Text>
@@ -75,7 +77,7 @@ const ProfileScreen = ({navigation}) => {
                 <View style={styles.action}>
                     <TextInput style={styles.textInput}
                         onChangeText={(password) => setUserPasswordDup(password)}
-                        placeholder="Zadajte heslo znova."
+                        placeholder="Zadajte heslo znova"
                         secureTextEntry={true}/>             
                 </View>
                 <TouchableOpacity onPress={handleUpdateButton} style={styles.buttonContainer}>
@@ -102,7 +104,8 @@ const styles = StyleSheet.create({
   name:{    // ok
     fontSize:28,
     color: "#5B84B1FF",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textTransform: 'uppercase'
   },
   info:{    // ok
     fontSize:16,
