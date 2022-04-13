@@ -72,7 +72,7 @@ const CheckoutScreen = ({navigation}) => {
       SecureStore.getItemAsync('access').then((token) => {
         if (token !== null) {
           console.log(JSON.stringify(dataToSend))
-          fetch('http://localhost:3000/api/orders/create_order', {
+          fetch(`http://localhost:3000/api/orders/create_order`, {
               method: "POST",
               body: JSON.stringify(dataToSend),
               headers: {
@@ -85,10 +85,10 @@ const CheckoutScreen = ({navigation}) => {
               if (response.status === 201) {
                   return response.json()
               }
-              return response.json()
           })
           .then ((responseJson) => {
               console.log(responseJson)
+              navigation.navigate("UserScreenStack", {screen: "HomeSceen"})
           })
           .catch((error) => {
               console.log(error);
@@ -136,7 +136,7 @@ const CheckoutScreen = ({navigation}) => {
         </View>
         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
           <Text style={[styles.text_footer]}>Cena spolu: </Text>
-          <Text style={{color: 'green', fontWeight: 'bold', fontSize: 18, marginLeft: 5}}>{state.finalPrice} €</Text>
+          <Text style={{color: 'green', fontWeight: 'bold', fontSize: 18, marginLeft: 5}}>{parseFloat(state.finalPrice).toFixed(2)} €</Text>
         </View>
       </ScrollView>
       <FAB

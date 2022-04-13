@@ -22,16 +22,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const CartScreen = ({navigation}) => {
 
-    const {state} = useContext(Context)
-    const [data, setData] = useState()
+    let { state } = useContext(Context)
 
     const deleteItem = () => {
     }
-
-    useEffect(() => {
-      setData(state.cart)
-    }, [state.cart])
-  
+    
     return (
         <View style={styles.container}>
         <Text style={styles.textHeading}>Nákupný košík</Text>
@@ -42,7 +37,7 @@ const CartScreen = ({navigation}) => {
           </Text>
         </View> : (
           <FlatList
-            data={data}
+            data={state.cart}
             keyExtractor={item => item.id}
             renderItem={({ item }) => 
               <View style={styles.item}> 

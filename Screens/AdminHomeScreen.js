@@ -3,8 +3,13 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView, 
+  RecyclerViewBackedScrollView
 } from 'react-native';
+import RoomScreen from './WEBRTC/RoomScreen'
+import CallScreen from './WEBRTC/CallScreen';
+import JoinScreen from './WEBRTC/JoinScreen';
 
 const AdminHomeScreen = ({navigation}) => {
   return (
@@ -22,6 +27,40 @@ const AdminHomeScreen = ({navigation}) => {
         </View>
     </View>
   );
+
+  // const screens = {
+  //   ROOM: 'JOIN_ROOM',
+  //   CALL: 'CALL',
+  //   JOIN: 'JOIN',
+  // }
+
+  // const [screen, setScreen] = useState(screens.ROOM);
+  // const [roomId, setRoomId] = useState('');
+
+  // let content;
+
+  // switch (screen) {
+  //   case screens.ROOM:
+  //     content = <RoomScreen roomId={roomId} setRoomId={setRoomId} screens={screens} setScreen={setScreen} />
+  //     break;
+
+  //   case screens.CALL:
+  //     content = <CallScreen roomId={roomId} screens={screens} setScreen={setScreen} />
+  //     break;
+
+  //   case screens.JOIN:
+  //     content = <JoinScreen roomId={roomId} screens={screens} setScreen={setScreen} />
+  //     break;
+
+  //   default:
+  //     content = <Text>Wrong Screen</Text>
+  // }
+
+  // return (
+  //   <SafeAreaView style={styles.container} >
+  //     {content}
+  //   </SafeAreaView>
+  // )
 };
 export default AdminHomeScreen;
 

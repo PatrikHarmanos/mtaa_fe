@@ -327,7 +327,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ios.app;
-				PRODUCT_NAME = mtaafe;
+				PRODUCT_NAME = "mtaafe";
 				SWIFT_OBJC_BRIDGING_HEADER = "mtaafe/mtaafe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -353,11 +353,12 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ios.app;
-				PRODUCT_NAME = mtaafe;
+				PRODUCT_NAME = "mtaafe";
 				SWIFT_OBJC_BRIDGING_HEADER = "mtaafe/mtaafe-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -416,6 +417,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -467,6 +469,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};

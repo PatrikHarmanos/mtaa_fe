@@ -36,7 +36,7 @@ const AdminAddProductScreen = ({navigation}) => {
         try {
             SecureStore.getItemAsync('access').then((token) => {
               if (token != null) {
-                fetch('http://localhost:3000/api/products/get_categories', {
+                fetch(`http://localhost:3000/api/products/get_categories`, {
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',

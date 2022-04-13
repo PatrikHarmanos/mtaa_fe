@@ -22,7 +22,7 @@ import Context from '../store/context';
 
 const ProductDetailScreen = ({navigation, route}) => {
 
-    const { id, name, price } = route.params
+    const { id, name, price, description, is_gluten_free } = route.params
     const [quantity, setQuantity] = useState(0)
     const {state} = useContext(Context)
     const [image, setImage] = useState()
@@ -74,9 +74,10 @@ const ProductDetailScreen = ({navigation, route}) => {
         <View style={styles.container}>
         <Text style={styles.textHeading}>Detail produktu</Text>
         <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, marginLeft: 20, marginTop: 20, borderWidth: 1, borderColor: '#000' }} />}
+          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 20, borderWidth: 1, borderColor: '#000' }} />}
           <Text style={styles.categoryText}>{name}</Text>
-          <Text style={[styles.categoryText, {color: '#000', marginBottom: 20}]}>{price} eur</Text>
+          <Text style={{color: '#000', marginBottom: 20, fontWeight: 'bold', marginTop: 10}}>{description}</Text>
+          <Text style={{color: '#000', marginBottom: 20, fontWeight: 'bold', fontSize: 20}}>{price} €</Text>
           <NumericInput onChange={value => setQuantity(value)} minValue={1} />
         </View>
         <FAB
@@ -192,7 +193,6 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   categoryText: {
-    marginLeft: 20,
     marginTop: 20,
     fontWeight: 'bold',
     color: '#006902',

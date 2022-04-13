@@ -21,7 +21,7 @@ const MenuScreen = ({navigation}) => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch('http://localhost:3000/api/products/get_products', {
+          fetch(`http://localhost:3000/api/products/get_products`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -47,7 +47,9 @@ const MenuScreen = ({navigation}) => {
     navigation.navigate("ProductDetailScreen", {
       id: item.id,
       name: item.name,
-      price: item.price
+      price: item.price,
+      description: item.description,
+      is_gluten_free: item.is_gluten_free
     })
   }
 

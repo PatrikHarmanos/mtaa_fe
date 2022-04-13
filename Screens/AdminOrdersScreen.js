@@ -31,7 +31,7 @@ const AdminOrdersScreen = ({navigation}) => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch('http://localhost:3000/api/orders/get_orders', {
+          fetch(`http://localhost:3000/api/orders/get_orders`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
