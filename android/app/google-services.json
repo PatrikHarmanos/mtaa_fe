@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "870075753359",
+    "project_id": "mtaa-7760f",
+    "storage_bucket": "mtaa-7760f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870075753359:android:7ef85ef1fce711e77e21fa",
+        "android_client_info": {
+          "package_name": "Android.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870075753359-ls3urnrijlb2ch9qkcuck3b8bvd0gm9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcBn8X0h9nQC414-J95n2bTaGdDOvnO9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870075753359-ls3urnrijlb2ch9qkcuck3b8bvd0gm9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

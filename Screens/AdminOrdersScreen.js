@@ -17,13 +17,11 @@ import {
 import Moment from 'moment';
 import { FAB } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
-import { useIsFocused } from '@react-navigation/native';
 
-const HomeScreen = ({navigation}) => {
+const AdminOrdersScreen = ({navigation}) => {
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   Moment.locale('en');
-  const isFocused = useIsFocused();
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -33,7 +31,7 @@ const HomeScreen = ({navigation}) => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch(`http://localhost:3000/api/orders/get_my_orders`, {
+          fetch(`http://localhost:3000/api/orders/get_orders`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -52,15 +50,15 @@ const HomeScreen = ({navigation}) => {
     } catch(error) {
       console.log(error);
     }
-  }, [isFetching, isFocused])
+  }, [isFetching])
   
   return (
     <View style={styles.container}>
-      <Text style={styles.textHeading}>Moje objednávky</Text>
+      <Text style={styles.textHeading}>Všetky objednávky</Text>
       { data.length === 0 ? 
         <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <Text style={styles.noData}>
-            Nemáte žiadne objednávky.
+            Neboli vytvorené žiadne objednávky.
           </Text>
         </View> : (
         <FlatList
@@ -84,16 +82,10 @@ const HomeScreen = ({navigation}) => {
             </TouchableOpacity>
           }
         /> )}
-      <FAB
-        style={styles.fab}
-        large
-        icon="plus"
-        onPress={() => navigation.navigate("MenuScreen")}
-      />
     </View>
   );
 };
-export default HomeScreen;
+export default AdminOrdersScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -12,6 +12,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2B762C0A55FB4CB78C6587C1 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4682D05A58B494B8043FB68 /* noop-file.swift */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		4C6C77FE2801E28100D9CEE7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C77FD2801E28100D9CEE7 /* GoogleService-Info.plist */; };
 		96905EF65AED1B983A6B3ABC /* libPods-mtaafe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-mtaafe.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
@@ -25,6 +26,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = mtaafe/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mtaafe/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = mtaafe/main.m; sourceTree = "<group>"; };
+		4C6C77FD2801E28100D9CEE7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-mtaafe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mtaafe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-mtaafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mtaafe.debug.xcconfig"; path = "Target Support Files/Pods-mtaafe/Pods-mtaafe.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-mtaafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mtaafe.release.xcconfig"; path = "Target Support Files/Pods-mtaafe/Pods-mtaafe.release.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4C6C77FD2801E28100D9CEE7 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* mtaafe */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				4C6C77FE2801E28100D9CEE7 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 			);
@@ -323,7 +327,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ios.app;
-				PRODUCT_NAME = mtaafe;
+				PRODUCT_NAME = "mtaafe";
 				SWIFT_OBJC_BRIDGING_HEADER = "mtaafe/mtaafe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -349,11 +353,12 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ios.app;
-				PRODUCT_NAME = mtaafe;
+				PRODUCT_NAME = "mtaafe";
 				SWIFT_OBJC_BRIDGING_HEADER = "mtaafe/mtaafe-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};
@@ -412,6 +417,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				ENABLE_BITCODE = NO;
 			};
 			name = Debug;
 		};
@@ -463,6 +469,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				ENABLE_BITCODE = NO;
 			};
 			name = Release;
 		};

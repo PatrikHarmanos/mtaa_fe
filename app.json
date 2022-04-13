@@ -10,6 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": ["@config-plugins/react-native-webrtc"],
     "updates": {
       "fallbackToCacheTimeout": 0
     },

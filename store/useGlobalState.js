@@ -7,7 +7,9 @@ const useGlobalState = () => {
             last_name: '',
             email: '',
             id: undefined,
-            is_admin: false
+            is_admin: false,
+            cart: [],
+            finalPrice: 0
         }
     );
 

@@ -30,6 +30,7 @@ export function DrawerContent(props, route) {
         }
     }
 
+    // globalny state
     const {state} = useContext(Context)
     
     return (
@@ -66,6 +67,18 @@ export function DrawerContent(props, route) {
                           isEnabled={false}
                           label="Menu"
                           onPress={() => {props.navigation.navigate("MenuScreen")}}
+                      />
+                      <DrawerItem 
+                          icon={({color, size}) => (
+                              <Icon 
+                                  name='cart-outline'
+                                  color={color}
+                                  size={size}
+                              />
+                          )}
+                          isEnabled={false}
+                          label="Košík"
+                          onPress={() => {props.navigation.navigate("CartScreenStack", { screen: "CartScreen" })}}
                       />
                       { state.is_admin ? (
                         <DrawerItem 

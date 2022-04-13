@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {
   StyleSheet,
   TextInput,
@@ -17,83 +17,65 @@ import {
 import Moment from 'moment';
 import { FAB } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
-import { useIsFocused } from '@react-navigation/native';
+import Context from '../store/context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const HomeScreen = ({navigation}) => {
-  const [data, setData] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  Moment.locale('en');
-  const isFocused = useIsFocused();
+const CartScreen = ({navigation}) => {
 
-  const onRefresh = () => {
-    setIsFetching(true);
-  }
+    let { state } = useContext(Context)
 
-  useEffect(() => {
-    try {
-      SecureStore.getItemAsync('access').then((token) => {
-        if (token != null) {
-          fetch(`http://localhost:3000/api/orders/get_my_orders`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + token,
-            }
-          })
-            .then((response) => response.json())
-            .then ((responseJson) => {
-              setData(responseJson)
-              setIsFetching(false)
-            })
-        } else {
-          navigation.navigate("SplashScreen")
-        }
-      })
-    } catch(error) {
-      console.log(error);
+    const deleteItem = () => {
     }
-  }, [isFetching, isFocused])
-  
-  return (
-    <View style={styles.container}>
-      <Text style={styles.textHeading}>Moje objednávky</Text>
-      { data.length === 0 ? 
+    
+    return (
+        <View style={styles.container}>
+        <Text style={styles.textHeading}>Nákupný košík</Text>
+        { !state.cart.length ? 
         <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <Text style={styles.noData}>
-            Nemáte žiadne objednávky.
+            Košík je prázdny.
           </Text>
         </View> : (
-        <FlatList
-          data={data}
-          keyExtractor={item => item.id}
-          onRefresh={() => onRefresh()}
-          refreshing={isFetching}
-          renderItem={({ item }) => 
-            <TouchableOpacity onPress={() => console.log('touched')} style={styles.item}> 
-              <View style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-                <Text style={{ color: '#006902', fontSize: 12, fontWeight: 'bold', marginBottom: 2}}>
-                  { Moment(item.created_at).format('DD.MM.YYYY') }
+          <FlatList
+            data={state.cart}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => 
+              <View style={styles.item}> 
+              <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={styles.orderTitle}>
+                  {item.name}
+                </Text>
+                <Text style={styles.orderSubTitle}>
+                  {item.price} €
                 </Text>
               </View>
-              <Text style={styles.orderTitle}>
-                {item.address}, {item.city}
-              </Text>
-              <Text style={styles.orderSubTitle}>
-                {item.total_price} €
-              </Text>
-            </TouchableOpacity>
-          }
-        /> )}
-      <FAB
-        style={styles.fab}
-        large
-        icon="plus"
-        onPress={() => navigation.navigate("MenuScreen")}
-      />
-    </View>
-  );
+              <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={styles.orderSubTitle}>
+                  Množstvo: {item.quantity}
+                </Text>
+                <TouchableOpacity onPress={deleteItem}>
+                  <Icon 
+                    name='trash-can-outline'
+                    color='red'
+                    size={25}
+                  />
+                </TouchableOpacity>
+              </View>
+              </View>
+            }
+          /> )}
+        <FAB
+            disabled={!state.cart.length ? true : false}
+            style={styles.fab}
+            large
+            label="Pokračovať"
+            icon="arrow-right"
+            onPress={() => navigation.navigate("CheckoutScreen")}
+        />
+        </View>
+    );
 };
-export default HomeScreen;
+export default CartScreen;
 
 const styles = StyleSheet.create({
   container: {
