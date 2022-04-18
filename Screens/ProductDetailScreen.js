@@ -32,7 +32,7 @@ const ProductDetailScreen = ({navigation, route}) => {
       try {
         SecureStore.getItemAsync('access').then((token) => {
           if (token != null) {
-            fetch(`http://10.10.10.27:3000/api/products/get_product_photo/${id}`, {
+            fetch(`http://10.10.37.143:3000/api/products/get_product_photo/${id}`, {
               method: 'GET',
               headers: {
                 "Content-Type": "image/jpeg",

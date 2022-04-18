@@ -56,7 +56,7 @@ const CreateAccountScreen = ({navigation}) => {
       is_admin: false
     }
 
-    fetch('http://10.10.10.27:3000/api/account/register', {
+    fetch('http://10.10.37.143:3000/api/account/register', {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {

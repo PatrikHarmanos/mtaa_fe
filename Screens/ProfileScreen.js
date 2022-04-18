@@ -38,7 +38,7 @@ const ProfileScreen = (props) => {
         password: userPasswordDup
       }
   
-      fetch('http://10.10.10.27:3000/api/account/update', {
+      fetch('http://10.10.37.143:3000/api/account/update', {
         method: 'PUT',
         body: JSON.stringify(dataToSend),
         headers: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   text_footer: { // ok
     color: '#05375a',
-    fontSize: 18
+    fontSize: 15
   },
   action: { // ok
     flexDirection: 'row',

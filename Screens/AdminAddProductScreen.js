@@ -36,7 +36,7 @@ const AdminAddProductScreen = ({navigation}) => {
         try {
             SecureStore.getItemAsync('access').then((token) => {
               if (token != null) {
-                fetch('http://10.10.10.27:3000/api/products/get_categories', {
+                fetch('http://10.10.37.143:3000/api/products/get_categories', {
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const AdminAddProductScreen = ({navigation}) => {
         try {
             SecureStore.getItemAsync('access').then((token) => {
                 if (token !== null) {
-                    fetch('http://10.10.10.27:3000/api/products/add_product', {
+                    fetch('http://10.10.37.143:3000/api/products/add_product', {
                         method: 'POST',
                         body: formData,
                         headers: {

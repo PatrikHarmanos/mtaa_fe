@@ -8,6 +8,7 @@ import {
   Button,
   FlatList
 } from 'react-native';
+import Moment from 'moment';
 
 const OrderDetailScreen = ({navigation, route}) => {
     
@@ -42,9 +43,11 @@ const OrderDetailScreen = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-        <View style={styles.nadpis}>
-            <Text style={styles.nadpisText}>Objednávka {id}</Text>
-        </View>
+      <Text style={styles.textHeading}>Detail objednávky</Text>
+      <Text style={{marginLeft: 20, color: '#006902', marginBottom: 20, fontWeight: 'bold'}}>
+          ID {id} // { Moment(created_at).format('DD.MM.YYYY') }</Text>
+      <ScrollView>
+         
         <View style={styles.popis}>
             <Text style={styles.information}>Doručenie</Text>
             <Text style={[styles.infElement, {marginTop: 5}]}>{city} {address}</Text>
@@ -60,8 +63,9 @@ const OrderDetailScreen = ({navigation, route}) => {
             <Text style={[styles.infElement, {marginVertical: 5}]}>{total_price}€</Text>
         </View>
         <View style={styles.popis}>
-          <Text style={styles.information}>Produkty</Text>
-          <FlatList
+          <Text style={[styles.information, {marginBottom: 10}]}>Produkty</Text>
+          <View style={{marginLeft: 30}}>
+            <FlatList
             data={reformatProducts(products, quantity)}
             keyExtractor={item => item.id}
             renderItem={({item}) => 
@@ -72,20 +76,18 @@ const OrderDetailScreen = ({navigation, route}) => {
               </View>
             }
           />
+          </View>
+          
         </View>
-
+        </ScrollView>
         <View style={styles.footer}>
                 <View style={styles.button}>
                   <TouchableOpacity style={styles.signIn} >
                         <Text style={styles.textSign}>Zavolať kuriérovi</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.button}>
-                    <TouchableOpacity style={styles.signIn} >
-                        <Text style={styles.textSign}>Zrušiť objednávku</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
+        
     </View>
   );
 };
@@ -108,6 +110,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start'
   },
+  textHeading: {
+    color: '#5B84B1FF',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 20,
+    marginTop: 10,
+    marginBottom: 5
+  },
   information: {
     fontWeight: 'bold',
     fontSize: 18,
@@ -115,13 +125,13 @@ const styles = StyleSheet.create({
   },
   infElement: {
     marginLeft: 30,
-    color: '#5B84B1FF'
+    
   },
   popis: {
     marginHorizontal: 30,
-    marginTop: 5,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginBottom: 10
   },
   signIn: {
     width: 300,
