@@ -17,11 +17,13 @@ import {
 import Moment from 'moment';
 import { FAB } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
+import { useIsFocused } from '@react-navigation/native';
 
 const HomeScreen = ({navigation}) => {
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   Moment.locale('en');
+  const isFocused = useIsFocused();
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -47,7 +49,7 @@ const HomeScreen = ({navigation}) => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch('http://10.10.37.143:3000/api/orders/get_my_orders/', { // zmenit IPcky 
+          fetch('http://10.10.10.27:3000/api/orders/get_my_orders/', { // zmenit IPcky 
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -66,7 +68,7 @@ const HomeScreen = ({navigation}) => {
     } catch(error) {
       console.log(error);
     }
-  }, [isFetching])
+  }, [isFetching, isFocused])
   
   return (
     <View style={styles.container}>

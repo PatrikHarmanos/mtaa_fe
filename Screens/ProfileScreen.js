@@ -38,7 +38,7 @@ const ProfileScreen = (props) => {
         password: userPasswordDup
       }
   
-      fetch('http://147.175.161.75/api/account/update', {
+      fetch('http://10.10.10.27:3000/api/account/update', {
         method: 'PUT',
         body: JSON.stringify(dataToSend),
         headers: {

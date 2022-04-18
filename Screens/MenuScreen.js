@@ -21,7 +21,7 @@ const MenuScreen = ({navigation}) => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch(`http://localhost:3000/api/products/get_products`, {
+          fetch(`http://10.10.10.27:3000/api/products/get_products`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

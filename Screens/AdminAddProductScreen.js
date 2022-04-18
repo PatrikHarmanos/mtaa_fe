@@ -36,7 +36,7 @@ const AdminAddProductScreen = ({navigation}) => {
         try {
             SecureStore.getItemAsync('access').then((token) => {
               if (token != null) {
-                fetch('http://10.10.37.143:3000/api/products/get_categories', {
+                fetch('http://10.10.10.27:3000/api/products/get_categories', {
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',
@@ -73,11 +73,6 @@ const AdminAddProductScreen = ({navigation}) => {
     };
 
     const handleRegisterButton = () => {
-        if (!category) {
-            alert('Nemas kategoriu');
-        }
-
-        console.log(image)
     
         let formData = new FormData();
         formData.append('image', {
@@ -94,7 +89,7 @@ const AdminAddProductScreen = ({navigation}) => {
         try {
             SecureStore.getItemAsync('access').then((token) => {
                 if (token !== null) {
-                    fetch('http://10.10.37.143:3000/api/products/add_product', {
+                    fetch('http://10.10.10.27:3000/api/products/add_product', {
                         method: 'POST',
                         body: formData,
                         headers: {
@@ -103,7 +98,6 @@ const AdminAddProductScreen = ({navigation}) => {
                         },
                     })
                     .then((response) => {
-                        console.log(response.status)
                         if (response.status === 201) {
                             return response.json()
                         }
@@ -121,6 +115,7 @@ const AdminAddProductScreen = ({navigation}) => {
         } catch(error) {
             console.log(error);
         }
+        navigation.navigate("AdminHomeScreen")
     };
 
     return (

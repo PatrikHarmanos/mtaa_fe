@@ -11,6 +11,8 @@ import CartScreen from './CartScreen'
 import CheckoutScreen from './CheckoutScreen';
 import ProductDetailScreen from './ProductDetailScreen';
 import AdminOrdersScreen from './AdminOrdersScreen';
+import OrderDetailScreen from './OrderDetailScreen';
+import ProfileScreen from './ProfileScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -39,6 +41,12 @@ const UserScreenStack = ({navigation}) => (
                 title: ''
             }} />
             <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen} options={{
+                title: ''
+            }} />
+            <Stack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{
+                title: ''
+            }} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{
                 title: ''
             }} />
     </Stack.Navigator>
