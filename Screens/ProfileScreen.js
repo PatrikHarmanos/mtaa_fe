@@ -10,7 +10,7 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import Context from "../store/context"
 
-const ProfileScreen = (props) => {
+const ProfileScreen = ({props, navigation}) => {
     const [userPassword, setUserPassword] = useState('');
     const [userPasswordDup, setUserPasswordDup] = useState('');
 
@@ -35,27 +35,44 @@ const ProfileScreen = (props) => {
       }
   
       var dataToSend = {
-        password: userPasswordDup
+        'new_password': userPasswordDup
       }
-  
-      fetch('http://10.10.37.143:3000/api/account/update', {
-        method: 'PUT',
-        body: JSON.stringify(dataToSend),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            alert('Heslo bolo zmenene')
-          }
-          if (response.status === 401 || response.status === 404) {
-            alert('Nespravne heslo');
+
+      try {
+        SecureStore.getItemAsync('access').then((token) => {
+          if (token !== null) {
+            console.log(JSON.stringify(dataToSend))
+            fetch(`http://147.175.162.212:3000/api/account/update`, {
+                method: "PUT",
+                body: JSON.stringify(dataToSend),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then((response) => {
+                console.log(response.status)
+                if (response.status === 200) {
+                  alert('Heslo bolo zmenene')
+                  navigation.navigate("HomeScreen")
+                }
+                if (response.status === 401 || response.status === 404) {
+                  alert('Nespravne heslo');
+                }
+            })
+            .then ((responseJson) => {
+                console.log(responseJson)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+          } else {
+              navigation.navigate("SplashScreen")
           }
         })
-        .catch((error) => {
+      } catch(error) {
           console.log(error);
-        });
+      }
     };
     
     return (

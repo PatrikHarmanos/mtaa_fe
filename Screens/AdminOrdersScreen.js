@@ -47,7 +47,7 @@ const AdminOrdersScreen = ({navigation}) => {
     try {
       SecureStore.getItemAsync('access').then((token) => {
         if (token != null) {
-          fetch(`http://10.10.37.143:3000/api/orders/get_orders`, {
+          fetch(`http://147.175.162.212:3000/api/orders/get_orders`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

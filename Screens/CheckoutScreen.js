@@ -72,7 +72,7 @@ const CheckoutScreen = ({navigation}) => {
       SecureStore.getItemAsync('access').then((token) => {
         if (token !== null) {
           console.log(JSON.stringify(dataToSend))
-          fetch(`http://10.10.37.143:3000/api/orders/create_order`, {
+          fetch(`http://147.175.162.212:3000/api/orders/create_order`, {
               method: "POST",
               body: JSON.stringify(dataToSend),
               headers: {

@@ -66,7 +66,7 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
             SecureStore.getItemAsync('access').then((token) => {
               if (token !== null) {
                 console.log(JSON.stringify(dataToSend))
-                fetch(`http://10.10.37.143:3000/api/orders/change_status/${id}`, {
+                fetch(`http://147.175.162.212:3000/api/orders/change_status/${id}`, {
                     method: "PUT",
                     body: JSON.stringify(dataToSend),
                     headers: {
@@ -78,11 +78,12 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
                     console.log(response.status)
                     if (response.status === 200) {
                         alert('Stav objednávky bol zmenený')
-                        navigation.navigate("AdminScreenStack", {screen: "AdminHomeSceen"})
+                        navigation.navigate("AdminScreenStack", {screen: "AdminOrdersScreen"})
                         return response.json()
                     }
                     if (response.status === 400){
                         alert('Nie je možné zmeniť stav! Objednávka už má zvolený stav')
+                        navigation.navigate("AdminScreenStack", {screen: "AdminOrdersScreen"})
                         return response.json()
                     }
                     
@@ -121,9 +122,8 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
                 <Text style={styles.textHeading}>Detail objednávky</Text>
-                <Text style={{marginLeft: 20, color: '#006902', marginBottom: 20}}>ID {id} // { Moment(created_at).format('DD.MM.YYYY') }</Text>
+                <Text style={{marginLeft: 20, color: '#006902', marginBottom: 20, fontWeight: 'bold'}}>ID {id} // { Moment(created_at).format('DD.MM.YYYY') }</Text>
                 
                 <Text style={{fontWeight: 'bold'}}>Zákazník
                     <Text style={{fontWeight: 'normal'}}> {user_id}</Text>
@@ -140,13 +140,15 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
                 <Text style={{fontWeight: 'bold'}}>Stav:
                     <Text style={{fontWeight: 'normal'}}> {state}</Text>
                 </Text>
+                
                 <Text style={{fontWeight: 'bold', paddingTop: 20}}>Objednané produkty:</Text>
             <View style={{marginLeft: 20}}><FlatList
                 data={reformatProducts(products, quantity)}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => <Text>{item.name} {item.quantity}</Text>}
             /></View>
-            <RNPickerSelect
+            <View style={{marginTop: 20}}>
+              <RNPickerSelect
                     useNativeAndroidPickerStyle={false}
                     style={pickerStyle}
                     onValueChange={(value) => {setNewState(value)}}
@@ -155,8 +157,8 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
                         {'label': 'v preprave', 'value': 2}, 
                         {'label': 'doručená', 'value': 3}
                     ]}
-                />
-            </ScrollView>
+            />
+            </View>
             <View style={styles.footer}>
                 <View style={styles.button}>
                     <TouchableOpacity style={styles.signIn} onPress={handleChangeButton}>

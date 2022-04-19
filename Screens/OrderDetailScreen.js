@@ -46,11 +46,10 @@ const OrderDetailScreen = ({navigation, route}) => {
       <Text style={styles.textHeading}>Detail objednávky</Text>
       <Text style={{marginLeft: 20, color: '#006902', marginBottom: 20, fontWeight: 'bold'}}>
           ID {id} // { Moment(created_at).format('DD.MM.YYYY') }</Text>
-      <ScrollView>
-         
         <View style={styles.popis}>
             <Text style={styles.information}>Doručenie</Text>
-            <Text style={[styles.infElement, {marginTop: 5}]}>{city} {address}</Text>
+            <Text style={[styles.infElement, {marginTop: 5}]}>{city}</Text>
+            <Text style={styles.infElement}>{address}</Text>
             <Text style={styles.infElement}>{postal_code}</Text>
             <Text style={[styles.infElement, {marginBottom: 5}]}>{phone_number}</Text>
         </View>
@@ -65,6 +64,7 @@ const OrderDetailScreen = ({navigation, route}) => {
         <View style={styles.popis}>
           <Text style={[styles.information, {marginBottom: 10}]}>Produkty</Text>
           <View style={{marginLeft: 30}}>
+            
             <FlatList
             data={reformatProducts(products, quantity)}
             keyExtractor={item => item.id}
@@ -77,9 +77,7 @@ const OrderDetailScreen = ({navigation, route}) => {
             }
           />
           </View>
-          
         </View>
-        </ScrollView>
         <View style={styles.footer}>
                 <View style={styles.button}>
                   <TouchableOpacity style={styles.signIn} >
@@ -87,7 +85,6 @@ const OrderDetailScreen = ({navigation, route}) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        
     </View>
   );
 };
@@ -125,7 +122,6 @@ const styles = StyleSheet.create({
   },
   infElement: {
     marginLeft: 30,
-    
   },
   popis: {
     marginHorizontal: 30,
