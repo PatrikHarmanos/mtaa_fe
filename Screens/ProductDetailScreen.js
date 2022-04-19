@@ -76,6 +76,7 @@ const ProductDetailScreen = ({navigation, route}) => {
         <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 20, borderWidth: 1, borderColor: '#000' }} />}
           <Text style={styles.categoryText}>{name}</Text>
+          <Text style={{color: '#000', marginBottom: 5, marginTop: 10, fontSize: 10}}>ID {id}</Text>
           <Text style={{color: '#000', marginBottom: 20, fontWeight: 'bold', marginTop: 10}}>{description}</Text>
           <Text style={{color: '#000', marginBottom: 20, fontWeight: 'bold', fontSize: 20}}>{price} €</Text>
           <NumericInput onChange={value => setQuantity(value)} minValue={1} />
