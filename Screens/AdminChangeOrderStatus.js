@@ -16,7 +16,8 @@ import * as SecureStore from 'expo-secure-store';
 import RNPickerSelect from 'react-native-picker-select';
 
 const AdminChangeOrderStatus = ({navigation, route}) => {
-    let value = 'v preprave'
+    // let value;  // premenna pre stav
+    const [new_state, setNewState] = useState();
 
     const {
         id,
@@ -32,21 +33,40 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
         created_at,
       } = route.params;
 
-    const [stateOptions, setState] = useState([{label: '', value: ''}]);
-
-    const handleChangeButton = (chosen_state) => {
-        var dataToSend = {
-            new_state: chosen_state
+    
+    const handleChangeButton = () => {
+        
+        if (new_state === 2){
+            var dataToSend = {
+                new_state: 'v preprave'
+            }
         }
+        else if (new_state === 3){
+            var dataToSend = {
+                new_state: 'doručená'
+            }
+        }
+        
 
-        console.log("changed")
+        console.log("before fetch")
         console.log(id)
+        console.log('new state')
+        console.log(new_state)
+        console.log('old state')
+        console.log(state)
 
-        try {
+        if (!new_state){
+            alert('Je potrebné vybrať nový stav na vykonanie zmeny!')
+        }
+        else if (state === 'doručená' && new_state === 2){
+            alert('Objednávka už bola doručená!')
+        }
+        else{
+            try {
             SecureStore.getItemAsync('access').then((token) => {
               if (token !== null) {
                 console.log(JSON.stringify(dataToSend))
-                fetch(`http://10.10.37.143:3000/api/orders/change_state/${id}`, {
+                fetch(`http://10.10.37.143:3000/api/orders/change_status/${id}`, {
                     method: "PUT",
                     body: JSON.stringify(dataToSend),
                     headers: {
@@ -57,12 +77,19 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
                 .then((response) => {
                     console.log(response.status)
                     if (response.status === 200) {
+                        alert('Stav objednávky bol zmenený')
+                        navigation.navigate("AdminScreenStack", {screen: "AdminHomeSceen"})
                         return response.json()
                     }
+                    if (response.status === 400){
+                        alert('Nie je možné zmeniť stav! Objednávka už má zvolený stav')
+                        return response.json()
+                    }
+                    
                 })
                 .then ((responseJson) => {
                     console.log(responseJson)
-                    navigation.navigate("AdminScreenStack", {screen: "AdminHomeSceen"})
+                    navigation.navigate("AdminScreenStack", {screen: "AdminHomeSceen"}) 
                 })
                 .catch((error) => {
                     console.log(error);
@@ -74,6 +101,7 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
           } catch(error) {
               console.log(error);
           }
+        }
     };
 
     const reformatProducts = (products, quantity) => {
@@ -121,8 +149,8 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
             <RNPickerSelect
                     useNativeAndroidPickerStyle={false}
                     style={pickerStyle}
-                    onValueChange={(value) => {setState(value), console.log(value)}}
-                    placeholder={{ label: "Vyberte stav", value: null }}
+                    onValueChange={(value) => {setNewState(value)}}
+                    placeholder={{ label: "Vyberte nový stav", value: null }}
                     items={[
                         {'label': 'v preprave', 'value': 2}, 
                         {'label': 'doručená', 'value': 3}
@@ -131,7 +159,7 @@ const AdminChangeOrderStatus = ({navigation, route}) => {
             </ScrollView>
             <View style={styles.footer}>
                 <View style={styles.button}>
-                    <TouchableOpacity style={styles.signIn} onPress={() => {handleChangeButton(value)}}>
+                    <TouchableOpacity style={styles.signIn} onPress={handleChangeButton}>
                         <Text style={styles.textSign}>Zmeniť stav objednávky</Text>
                     </TouchableOpacity>
                 </View>
