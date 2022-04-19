@@ -14,6 +14,7 @@ import AdminOrdersScreen from './AdminOrdersScreen';
 import OrderDetailScreen from './OrderDetailScreen';
 import ProfileScreen from './ProfileScreen';
 import AdminChangeOrderStatus from './AdminChangeOrderStatus';
+import AdminDeleteProductScreen from './AdminDeleteProductScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -77,6 +78,9 @@ const AdminScreenStack = ({navigation}) => (
                 title: ''
             }} />
             <Stack.Screen name="AdminChangeOrderStatus" component={AdminChangeOrderStatus} options={{
+                title: ''
+            }} />
+            <Stack.Screen name="AdminDeleteProductScreen" component={AdminDeleteProductScreen} options={{
                 title: ''
             }} />
     </Stack.Navigator>

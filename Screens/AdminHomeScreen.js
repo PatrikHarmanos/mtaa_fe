@@ -25,6 +25,11 @@ const AdminHomeScreen = ({navigation}) => {
               <Text style={styles.textSign}>Pridať produkt</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.button}>
+          <TouchableOpacity onPress={() => navigation.navigate("AdminDeleteProductScreen")} style={styles.signIn}>
+              <Text style={styles.textSign}>Odstrániť produkt</Text>
+          </TouchableOpacity>
+        </View>
     </View>
   );
 
